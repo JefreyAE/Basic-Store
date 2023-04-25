@@ -1,0 +1,19 @@
+<section id="login_container">
+    <form action="{% url 'loginUser' %}" method='POST'>
+        {% csrf_token %}
+        <label for="username">User name</label>
+        <input type="username" name="username" id="username" />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+
+        <input type="submit" value="Sign in" />
+    </form>
+</section>
+{% if messages %}
+    {% for message in messages %}
+        <div id="error_field" class="error_label">{{message}}</div>
+    {% endfor %}
+{% endif %}
+<section id="registerLink">
+    <a href="{% url 'registerUser' %}">Create account</a>
+</section>

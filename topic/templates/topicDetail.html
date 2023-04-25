@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% load static%}
+
+{% block content %}
+<section id="central">
+    {% include 'leftSidebar.html' %}
+    <div id="content">
+        <h1 class="title">{{name}}</h1>             
+            <section id="item_container">   
+                <div class="image_and_data">
+                    <img class="item_image" src={% static item.image.url %} />   
+                    <div class="item_data">
+                        <h3>{{item.name}}</h3>
+                        <p class="item_descripcion">Descripcion: {{item.description}}</p>
+                        <p class="item_precio">Precio: {{item.price}}</p>  
+                    </div>  
+                </div>    
+                <div class="item_actions">  
+                    <a href={% url 'cartAdd' item.id %}>Agregar al carrito</a>                          
+                </div>                                           
+            </section>
+    </div>
+    {% include 'rightSidebar.html' %}
+</section>
+{% endblock content %}

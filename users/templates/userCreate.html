@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% load static%}
+
+{% block content %}
+<section id="central">
+    {% include 'leftSidebar.html' %}
+    <div id="content">
+        <h1 id="title_register">Account creation</h1>
+        {% if message_success %}
+            <h4 id="message_success">{{message_success}}</h4>
+        {% endif %}
+        {% if message_fail %}
+            <h4 id="message_fail">{{message_fail}}</h4>
+        {% endif %}
+        {% if form.errors %}
+            {% for message in form.errors.values%}
+                <div id="error_field">{{message}}</div>
+            {% endfor%}
+        {% endif %}
+        <form action="{% url 'saveUser' %}" id="form_users" method="POST">
+            {% csrf_token %}
+            {% for field in form%}
+                <label>{{field.label}}</label>
+                {{field}}
+            {% endfor%}
+            <input type="submit" value="Register" />
+        </form>
+    </div>
+    {% include 'rightSidebar.html' %}
+</section>
+{% endblock content %}

@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang='es'>
+    <head>
+        <meta charsert="utf-8"/>
+        {% load static %}
+        <link rel='stylesheet' type='text/css' href={% static 'css/styles5.css' %} />
+        <title>Store</title>
+        
+    </head>
+    <body class="layout">
+        <header>
+            <div id='logo'>
+                <img src={% static 'images/diamond.png' %} />
+            </div>
+            <nav id='navbar'>
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    {% for topic in topics %}
+                        <li>
+                            <a href="{% url 'topic' topic.name %}">{{topic.name}}</a>
+                        </li>
+                    {% endfor %}
+                    {% if user.username %}
+                        <li>
+                            <a href="{% url 'cart' %}">Carrito</a>
+                        </li>
+                    {% endif %}
+                    {% if user.username %}
+                        <li>
+                            <a href="{% url 'orders' 1 %}">Mis ordenes</a>
+                        </li>
+                    {% endif %}
+                    {% if user.username %}
+                        <li>
+                            <a href="{% url 'chatBot'  %}">Chat Bot</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="{% url 'admin:index'  %}">Django Admin</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>    
+        </header>  
+        <section id="info_bar">
+            {% if user.username %}
+                <div class="welcome_user">
+                    <h3>Welcome {{ user.username }}</h3>
+                </div> 
+                <div class="logout">
+                    <h4><a href="{% url 'logoutUser' %}">Logout</a></h4>
+                </div> 
+            {% endif %}
+        </section>
+            {% block content %}
+                <p>Contenido del layout</p>
+            {% endblock  %}
+        <footer>
+            Desarrollador Jefrey AE &copy - {% now "Y" %}
+        </footer>
+    </body> 
+    <script src={% static 'js/carousel.js' %}></script>
+</html>
+
+

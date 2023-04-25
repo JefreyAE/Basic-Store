@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% load static%}
+
+{% block content %}
+<section id="central">
+    {% include 'leftSidebar.html' %}
+    <div id="content">
+        <h1 class="title">Chat bot</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div id="error_field" class="error_label">{{message}}</div>
+            {% endfor %}
+        {% endif %}
+        {% if form.errors %}
+            {% for message in form.errors.values%}
+                <div id="error_field">{{message}}</div>
+            {% endfor%}
+        {% endif %}
+        <div id="chat_container">
+            {% if history %}
+                {% for item in history.values%}
+                    <div class="dialog_container">
+                        <label id="youLabel">You</label><label class="question">{{item.prompt}}</label>
+                    </div>
+                    <div class="dialog_container">
+                        <label id="GPTLabel">GPT3</label><label class="response">{{item.response}}</label>
+                    </div>
+                {% endfor%}
+            {% endif %}
+            <div class="lds-dual-ring" id="spinner_chat"></div>
+        </div>
+        <form action="{% url 'sendQuestion' %}" id="form_chat" method="POST">
+            {% csrf_token %}
+            <input type="text" id="prompt" name="prompt" autofocus />
+            {% if history %}
+                <input type="text" value="{{history}}" name="history" hidden/>
+            {% endif %}
+            <input type="submit" id="chat_submit" value="Send" />
+        </form>
+    </div>
+    {% include 'rightSidebar.html' %}
+</section>
+<script>
+    var objDiv = document.getElementById("chat_container");
+    var chatSubmit = document.getElementById("chat_submit");
+    var inputPrompt = document.getElementById("prompt");
+    var spinner = document.getElementById("spinner_chat");
+
+    objDiv.scrollTop=objDiv.scrollHeight;
+    spinner.addEventListener("change", function(){
+        objDiv.scrollTop=objDiv.scrollHeight;
+    });
+    chat_submit.addEventListener("click", function(){
+        
+        spinner.style.display = "block";
+        setTimeout(function(){
+            spinner.style.display = "none";
+        }, 3000);
+    });
+   
+</script>
+{% endblock content %}
+

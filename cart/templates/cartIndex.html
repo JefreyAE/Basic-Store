@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load static%}
+
+{% block content %}
+<section id="central">
+    {% include 'leftSidebar.html' %}
+    <div id="content">
+        <h1 class="title">Carrito de compras</h1>    
+        <div class="table_container">
+            <div class="table_header">
+                <h4>{{category.name}}</h4>
+            </div>
+            <div class="table_margins">
+                <table class="table_code">
+                    <tbody>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Descripcion</th>
+                            <th>Precio unitario</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                        {% if items %} 
+                            {% for item in items %} 
+                                    <tr>
+                                        <td class=""> <img class="item_image" src={% static item.image.url %} /></td>
+                                        <td class="">{{item.description}}</td>
+                                        <td class="">{{item.price}}</td>
+                                        <td class="">{{item.quantity}} 
+                                            <div class="item_actions">  
+                                                <a class="quantity_buttons" href={% url 'cartAdd' item.id  %}>+</a>
+                                                <a class="quantity_buttons" href={% url 'cartRemove' item.id  %}>-</a>       
+                                            </div> 
+                                        </td>
+                                        <td class="comment"><a href={% url 'cartDelete' item.id %}>Eliminar</a></td>
+                                    </tr>   
+                            {% empty %}
+                                <p> No data </p>
+                            {% endfor %}
+                        {% endif %}
+                        <tr>
+                            <td colspan="3">Total</td>
+                            <td colspan="2">{{total}}</td>
+                        </td>
+                    </tbody>                   
+                </table>
+            </div>
+        </div>
+        {% if user.username %}
+            <a class="btn_link" id="btn_cart" href={% url 'orderRegister' 1 %}>Realizar la orden</a>
+        {% endif %}
+    </div>
+    {% include 'rightSidebar.html' %}
+</section>
+{% endblock content %}

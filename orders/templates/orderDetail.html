@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% load static%}
+
+{% block content %}
+<section id="central">
+    {% include 'leftSidebar.html' %}
+    <div id="content">
+        <h1 class="title">Tu orden</h1>    
+        <div class="table_container">
+            <div class="table_header">
+                <h4>{{category.name}}</h4>
+            </div>
+            <div class="table_margins">
+                <table class="table_code">
+                    <tbody>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Descripcion</th>
+                            <th>Precio unitario</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        {% if items %} 
+                            {% for item in items %} 
+                                <tr>
+                                    <td class=""> <img class="item_image" src={% static item.image.url %} /></td>
+                                    <td class="">{{item.description}}</td>
+                                    <td class="">{{item.price}}</td>
+                                    <td class="">{{item.quantity}}</td>                             
+                                </tr>   
+                            {% empty %}
+                                <p> No data </p>
+                            {% endfor %}
+                        {% endif %}
+                        <tr>
+                            <td colspan="3">Total</td>
+                            <td colspan="2">{{total}}</td>
+                        </td>
+                    </tbody>                   
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    {% include 'rightSidebar.html' %}
+</section>
+{% endblock content %}
