@@ -131,4 +131,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)),'layouts', 'static', 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'layouts', 'static')
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
