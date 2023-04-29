@@ -7,7 +7,6 @@ def index(request):
         return redirect('home')
     
     user = request.user
-    print(request.user.username)
     cart = get_object_or_404(Cart, user_id = user.id)
 
     items = []
@@ -72,7 +71,7 @@ def delete(request, id):
         return redirect('home')
     
     user = request.user
-    
+
     cart, _ = Cart.objects.get_or_create(user_id = user.id)
     cart_and_item, exist = ItemCart.objects.get_or_create(cart_id=cart.id,item_id=item.id)
     cart_and_item.delete()
