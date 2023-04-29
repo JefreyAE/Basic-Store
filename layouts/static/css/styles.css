@@ -378,9 +378,13 @@ header {
 
 .table_code td {
     border: 1px solid #30363d;
-    font-size: 12px;
+    font-size: 16px;
     padding: 2px;
     width: 60%;
+}
+
+.table_code .price {
+    padding: 5px;
 }
 
 .table_actions {
@@ -816,14 +820,20 @@ align-items: center;*/
     margin: 0px auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    padding: 7px;
+    padding: 10px;
     background-color: #238636;
     color: white;
     border: none;
     border-radius: 5px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 15px;
 }
 
 #btn_cart{
     float: right;
+}
+
+a:visited {
+    color: inherit; 
 }

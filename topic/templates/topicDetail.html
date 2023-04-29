@@ -8,16 +8,18 @@
         <h1 class="title">{{name}}</h1>             
             <section id="item_container">   
                 <div class="image_and_data">
-                    <img class="item_image" src={% static item.image.url %} />   
+                    <img class="item_image" title={{item.name}} src={% static item.image.url %} alt={{item.description}}/>   
                     <div class="item_data">
                         <h3>{{item.name}}</h3>
                         <p class="item_descripcion">Descripcion: {{item.description}}</p>
                         <p class="item_precio">Precio: {{item.price}}</p>  
                     </div>  
-                </div>    
-                <div class="item_actions">  
-                    <a href={% url 'cartAdd' item.id %}>Agregar al carrito</a>                          
-                </div>                                           
+                </div>  
+                {% if user.username %}  
+                    <div class="item_actions">  
+                        <a href={% url 'cartAdd' item.id %}>Agregar al carrito</a>                          
+                    </div>  
+                {% endif %}                                             
             </section>
     </div>
     {% include 'rightSidebar.html' %}

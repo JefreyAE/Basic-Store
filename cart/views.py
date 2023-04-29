@@ -3,11 +3,12 @@ from home.models import *
 
 def index(request):
 
-    if request.user:
-        user = request.user
-        pass
-
-    cart, _ = Cart.objects.get_or_create(user_id = user.id)
+    if not request.user.username:      
+        return redirect('home')
+    
+    user = request.user
+    print(request.user.username)
+    cart = get_object_or_404(Cart, user_id = user.id)
 
     items = []
     itemcarts = ItemCart.objects.filter(cart=cart)
@@ -29,10 +30,10 @@ def add(request, id):
 
     item = get_object_or_404(Item, id=id)
 
-    if request.user:
-        user = request.user
-        pass
-
+    if not request.user.username:      
+        return redirect('home')
+    
+    user = request.user
     cart, _ = Cart.objects.get_or_create(user_id = user.id)
 
     cart_and_item, exist = ItemCart.objects.get_or_create(cart_id=cart.id,item_id=id)
@@ -44,9 +45,11 @@ def add(request, id):
 def remove(request, id):
 
     item = get_object_or_404(Item, id=id)
-    if request.user:
-        user = request.user
-        pass
+
+    if not request.user.username:       
+        return redirect('home')
+    
+    user = request.user
 
     cart, _ = Cart.objects.get_or_create(user_id = user.id)
     item = Item.objects.get(id=id)
@@ -59,20 +62,17 @@ def remove(request, id):
     
     cart_and_item.save()
 
-    categories = Category.objects.all()
-
-    topics = Topic.objects.all()
-
     return redirect('cart')
 
 def delete(request, id):
 
     item = get_object_or_404(Item, id=id)
 
-    if request.user:
-        user = request.user
-        pass
-
+    if not request.user.username:     
+        return redirect('home')
+    
+    user = request.user
+    
     cart, _ = Cart.objects.get_or_create(user_id = user.id)
     cart_and_item, exist = ItemCart.objects.get_or_create(cart_id=cart.id,item_id=item.id)
     cart_and_item.delete()

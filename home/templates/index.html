@@ -15,7 +15,7 @@
                             <div class="card-container">
                                 <a href={% url 'topicDetail' item.id %}>
                                     <div class="card">
-                                        <img src={% static item.image.url %} alt="Joya 3">
+                                        <img src={% static item.image.url %} title={{item.name}} alt={{item.description}}>
                                         <p>Precio: {{ item.price }}</p>
                                     </div>
                                 </a>
@@ -26,8 +26,8 @@
                     {% endif %}                 
                 </div>
                 <div class="nav">
-                <button class="prev"><i class="fas fa-arrow-left fa-2x"><</i></button>
-                <button class="next"><i class="fas fa-arrow-right fa-2x">></i></button>
+                <button class="prev"><i class="fas fa-arrow-left fa-2x"><strong><</strong></i></button>
+                <button class="next"><i class="fas fa-arrow-right fa-2x"><strong>></strong></i></button>
                 </div>
             </div>
         </div>

@@ -9,9 +9,9 @@
         <h1 class="title">{{name}}</h1>     
             {% for item in items %} 
                     <section id="item_container">   
-                        <a href={% url 'topicDetail' item.id %}>
+                        <a class="item_link" href={% url 'topicDetail' item.id %}>
                             <div class="image_and_data">
-                                <img class="item_image" src={% static item.image.url %} />   
+                                <img class="item_image" title={{item.name}} src={% static item.image.url %} alt={{item.description}}/>   
                                 <div class="item_data">
                                     <h3>{{item.name}}</h3>
                                     <p class="item_descripcion">Descripcion: {{item.description}}</p>
@@ -19,9 +19,11 @@
                                 </div>  
                             </div>   
                         </a> 
-                        <div class="item_actions">  
-                            <a href={% url 'cartAdd' item.id %}>Agregar al carrito</a>                   
-                        </div>                                           
+                        {% if user.username %}  
+                            <div class="item_actions">  
+                                <a href={% url 'cartAdd' item.id %}>Agregar al carrito</a>                   
+                            </div>     
+                        {% endif %}                                      
                     </section>
                 {% empty %}
                 <p> No data </p>
